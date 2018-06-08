@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React, { Component }from 'react';
-import { Link } from 'react-router-dom';
+
 
 export default class Auth extends Component {
     constructor(props) {
@@ -23,6 +23,7 @@ registerUser(){
        this.setState({
            loggedIn: 'Login Succesful', error: ''
        })
+       this.props.history.push('/dashboard')
     })
 }
 
@@ -38,6 +39,7 @@ login() {
             } else {
                 this.setState({loggedIn: 'Login Succesful', error: ''})
             }
+            this.props.history.push('/dashboard')
         })
     } else {
         this.setState({error: 'Please fill in both fields'})
@@ -64,8 +66,9 @@ handleInput(e) {
                     Password: <input name='passwordInput' value={this.state.passwordInput} onChange={(e) => this.setState({ passwordInput: e.target.value})} />
                 </div> 
                 <br />
-                <Link to='/dashboard'> <button >Login</button> </Link>
-                <Link to='/dashboard'> <button onClick={() => {this.registerUser}}>Register</button> </Link>
+                <button onClick={() => {this.login()}}>Login</button> 
+                <button onClick={() => {this.registerUser()}}>Register</button> 
+                <h4>{this.state.error}</h4>
                 
             </div> 
         )
